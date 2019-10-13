@@ -18,7 +18,9 @@
 Modifcation by tschaban (gitHub)
 - removed unecessary code for AFE firmware
 - added option for setting I2C Address
-
+
+
+
  ****************************************************/
 
 #ifndef ADAFRUIT_BMP085_H
@@ -60,7 +62,7 @@ Modifcation by tschaban (gitHub)
 class Adafruit_BMP085 {
 public:
   Adafruit_BMP085();
-  boolean begin(uint8_t mode = BMP085_ULTRAHIGHRES,
+  boolean begin(uint8_t sda, uint8_t scl, uint8_t mode = BMP085_ULTRAHIGHRES,
                 uint8_t address = BMP085_I2CADDR); // by default go highres
   float readTemperature(void);
   int32_t readPressure(void);
