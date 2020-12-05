@@ -60,15 +60,15 @@
 class Adafruit_BMP085 {
 public:
   Adafruit_BMP085();
-
-  boolean begin(uint8_t sda, uint8_t scl, uint8_t mode = BMP085_ULTRAHIGHRES,
-                uint8_t address = BMP085_I2CADDR); // by default go highres
+  
   /*!
    * @brief Starts I2C connection
-   * @param mode Mode to set, ultra high-res by default
+   * @param sda,scl IIP ports, mode Mode to set, ultra high-res by default
    * @return Returns true if successful
    */
-  boolean begin(uint8_t mode = BMP085_ULTRAHIGHRES);
+  boolean begin(uint8_t sda, uint8_t scl, uint8_t mode = BMP085_ULTRAHIGHRES,
+                uint8_t address = BMP085_I2CADDR); // by default go highres
+
   /*!
    * @brief Gets the temperature over I2C from the BMP085
    * @return Returns the temperature
