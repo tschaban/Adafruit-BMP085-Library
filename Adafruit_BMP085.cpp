@@ -1,34 +1,45 @@
-/***************************************************
-  This is a library for the Adafruit BMP085/BMP180 Barometric Pressure + Temp
- sensor
-
-  Designed specifically to work with the Adafruit BMP085 or BMP180 Breakout
-  ----> http://www.adafruit.com/products/391
-  ----> http://www.adafruit.com/products/1603
-
-  These displays use I2C to communicate, 2 pins are required to
-  interface
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
- ****************************************************/
+/*!
+ * @file Adafruit_BMP085.cpp
+ *
+ * @mainpage Adafruit BMP085 Library
+ *
+ * @section intro_sec Introduction
+ *
+ * This is a library for the Adafruit BMP085/BMP180 Barometric Pressure + Temp
+ * sensor
+ *
+ * Designed specifically to work with the Adafruit BMP085 or BMP180 Breakout
+ * ----> http://www.adafruit.com/products/391
+ * ----> http://www.adafruit.com/products/1603
+ *
+ * These displays use I2C to communicate, 2 pins are required to
+ * interface
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * @section author Author
+ *
+ * Written by Limor Fried/Ladyada for Adafruit Industries.
+ *
+ * @section license License
+ *
+ * BSD license, all text above must be included in any redistribution
+ */
 
 #include "Adafruit_BMP085.h"
 
 Adafruit_BMP085::Adafruit_BMP085() {}
 
-boolean Adafruit_BMP085::begin(uint8_t sda,
-                uint8_t scl, uint8_t mode, uint8_t address) {
+boolean Adafruit_BMP085::begin(uint8_t sda, uint8_t scl, uint8_t mode,
+                               uint8_t address) {
   if (mode > BMP085_ULTRAHIGHRES)
     mode = BMP085_ULTRAHIGHRES;
   oversampling = mode;
 
   _i2caddr = address;
 
-  Wire.begin(sda,scl);
+  Wire.begin(sda, scl);
 
   if (read8(0xD0) != 0x55)
     return false;
