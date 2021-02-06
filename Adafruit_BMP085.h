@@ -63,10 +63,21 @@ public:
    * @return Returns true if successful
    */
   bool begin(uint8_t mode = BMP085_ULTRAHIGHRES, TwoWire *wire = &Wire);
+
+  /*!
+   * @brief Starts I2C connection
+   * @param address BMP085 address
+   * @param mode Mode to set, ultra high-res by default
+   * @param wire The I2C interface to use, defaults to Wire
+   * @return Returns true if successful
+   */
+  bool begin(uint8_t address, uint8_t mode, TwoWire *wire);
+
   /*!
    * @brief Gets the temperature over I2C from the BMP085
    * @return Returns the temperature
    */
+
   float readTemperature(void);
   /*!
    * @brief Gets the pressure over I2C from the BMP085
@@ -105,7 +116,7 @@ private:
   Adafruit_I2CDevice *i2c_dev;
   uint8_t oversampling;
 
-  uint8_t _i2caddr;
+  uint8_t _i2caddr = 0;
 
   int16_t ac1, ac2, ac3, b1, b2, mb, mc, md;
   uint16_t ac4, ac5, ac6;

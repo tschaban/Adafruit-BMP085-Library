@@ -33,6 +33,12 @@
 
 Adafruit_BMP085::Adafruit_BMP085() {}
 
+/* For AFE */
+bool Adafruit_BMP085::begin(uint8_t address, uint8_t mode, TwoWire *wire) {
+  _i2caddr = address;
+  begin(mode, wire);
+}
+
 bool Adafruit_BMP085::begin(uint8_t mode, TwoWire *wire) {
   if (mode > BMP085_ULTRAHIGHRES)
     mode = BMP085_ULTRAHIGHRES;
@@ -42,7 +48,9 @@ bool Adafruit_BMP085::begin(uint8_t mode, TwoWire *wire) {
     delete i2c_dev; // remove old interface
   }
 
-  i2c_dev = new Adafruit_I2CDevice(BMP085_I2CADDR, wire);
+/* Change For AFE */
+  i2c_dev =
+      new Adafruit_I2CDevice(_i2caddr > 0 ? _i2caddr : BMP085_I2CADDR, wire);
 
   if (!i2c_dev->begin()) {
     return false;
@@ -131,13 +139,13 @@ uint32_t Adafruit_BMP085::readRawPressure(void) {
   raw |= read8(BMP085_PRESSUREDATA + 2);
   raw >>= (8 - oversampling);
 
-  /* this pull broke stuff, look at it later?
-   if (oversampling==0) {
-     raw <<= 8;
-     raw |= read8(BMP085_PRESSUREDATA+2);
-     raw >>= (8 - oversampling);
-   }
-  */
+/* this pull broke stuff, look at it later?
+ if (oversampling==0) {
+   raw <<= 8;
+   raw |= read8(BMP085_PRESSUREDATA+2);
+   raw >>= (8 - oversampling);
+ }
+*/
 
 #if BMP085_DEBUG == 1
   Serial.print("Raw pressure: ");
