@@ -36,7 +36,7 @@ Adafruit_BMP085::Adafruit_BMP085() {}
 /* For AFE */
 bool Adafruit_BMP085::begin(uint8_t address, uint8_t mode, TwoWire *wire) {
   _i2caddr = address;
-  begin(mode, wire);
+  return begin(mode, wire);
 }
 
 bool Adafruit_BMP085::begin(uint8_t mode, TwoWire *wire) {
