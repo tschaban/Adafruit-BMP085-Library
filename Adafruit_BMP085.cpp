@@ -31,7 +31,7 @@
 #include "Adafruit_BMP085.h"
 #include <Adafruit_I2CDevice.h>
 
-Adafruit_BMP085::Adafruit_BMP085() {}
+Adafruit_BMP085::Adafruit_BMP085() { i2c_dev = nullptr; }
 
 /* For AFE */
 bool Adafruit_BMP085::begin(uint8_t address, uint8_t mode, TwoWire *wire) {
